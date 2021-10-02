@@ -31,6 +31,9 @@ namespace userMicroservice
             services.AddDbContext<userContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            
+            //services.AddDatabaseDeveloperPageExceptionFilter();
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

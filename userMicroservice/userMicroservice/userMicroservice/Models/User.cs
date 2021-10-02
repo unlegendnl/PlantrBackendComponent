@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace userMicroservice.Models
 {
-    public class userModel
+    public class User
     {
         public int userId { get; set; }
         public string userName { get; set; }

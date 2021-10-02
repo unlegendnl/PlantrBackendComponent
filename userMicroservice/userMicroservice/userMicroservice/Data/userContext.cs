@@ -13,6 +13,6 @@ namespace userMicroservice.Data
         {
         }
 
-        public DbSet<userModel> User { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
