@@ -7,6 +7,7 @@ namespace authService.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Text.Json.Serialization;
 
     [Table("User")]
     public class User
@@ -16,7 +17,7 @@ namespace authService.Models
         public int UserId { get; set; }
 
         public string UserName { get; set; }
-
+        [JsonIgnore] // does not need to be included in returned API responses
         public string Password { get; set; }
 
     }
