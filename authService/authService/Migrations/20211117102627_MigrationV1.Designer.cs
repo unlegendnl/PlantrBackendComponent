@@ -9,7 +9,7 @@ using authService.Context;
 namespace authService.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20211110090936_MigrationV1")]
+    [Migration("20211117102627_MigrationV1")]
     partial class MigrationV1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,12 @@ namespace authService.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Admin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");

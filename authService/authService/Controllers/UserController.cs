@@ -8,6 +8,7 @@ using authService.Models;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
+using Microsoft.AspNetCore.Identity;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -54,6 +55,7 @@ namespace authService
             IEnumerable<User> users = _userContext.Users;
             foreach (User val in users)
             {
+                //UserManager. 
                 if(val.UserName == value.UserName) // no duplucate usernames
                 {
                     throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.UnprocessableEntity));

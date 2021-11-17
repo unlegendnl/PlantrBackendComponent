@@ -126,3 +126,4 @@ C:\Users\migue\OneDrive\Documenten\PlantrBackendComponent\authService\authServic
 C:\Users\migue\OneDrive\Documenten\PlantrBackendComponent\authService\authService\obj\Debug\net5.0\ref\authService.dll
 C:\Users\migue\OneDrive\Documenten\PlantrBackendComponent\authService\authService\obj\Debug\net5.0\authService.pdb
 C:\Users\migue\OneDrive\Documenten\PlantrBackendComponent\authService\authService\obj\Debug\net5.0\authService.genruntimeconfig.cache
+C:\Users\migue\OneDrive\Documenten\PlantrBackendComponent\authService\authService\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
