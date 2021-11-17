@@ -9,6 +9,8 @@ using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 using Microsoft.AspNetCore.Identity;
+using authService.Security;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -61,6 +63,7 @@ namespace authService
                     throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.UnprocessableEntity));
                 }
             }
+            value.Password = SecurePasswordHasher.Hash(value.Password);
             _userContext.Users.Add(value);
             _userContext.SaveChanges();
         }
@@ -72,6 +75,7 @@ namespace authService
             var user = _userContext.Users.FirstOrDefault(s => s.UserId == id);
             if (user != null)
             {
+                
                 _userContext.Entry<User>(user).CurrentValues.SetValues(value);
                 _userContext.SaveChanges();
             }
@@ -82,5 +86,12 @@ namespace authService
         public void Delete(int id)
         {
         }
+
+
+
+
+
+
+
     }
 }
