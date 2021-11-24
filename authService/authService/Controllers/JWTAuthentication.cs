@@ -75,21 +75,15 @@ namespace authService.Controllers
             {
                 if (val.UserName == login.UserName) //username match?
                 {
-                    if (SecurePasswordHasher.Verify(login.Password, val.Password)) //password match?
+                    if (SecurePasswordHasher.Verify(login.Password, val.Password)) //password match with security?
                     {
                         return val;
                     }
                 }
             }
+            //return null if no match can be found
             return null;
 
-            //Validate the User Credentials    
-            //Demo Purpose, I have Passed HardCoded User Information    
-            if (login.UserName == "Jignesh")
-            {
-                user = new User { UserName = "Jignesh Trivedi", Email = "test.btest@gmail.com" };
-            }
-            return user;
         }
     }
 }
