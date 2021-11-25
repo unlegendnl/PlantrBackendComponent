@@ -33,7 +33,8 @@ namespace authService
         public void ConfigureServices(IServiceCollection services)
         {
             //JWT config
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>{
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -63,12 +64,11 @@ namespace authService
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserContext context)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "authService v1"));
-            }
+
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "authService v1"));
+
 
             context.SeedDb();
 
@@ -79,7 +79,7 @@ namespace authService
             app.UseAuthorization();
 
             app.UseAuthentication();
-            
+
             //app.UseMvc();
 
             app.UseEndpoints(endpoints =>
