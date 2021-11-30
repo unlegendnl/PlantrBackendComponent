@@ -57,7 +57,8 @@ namespace authService
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "authService", Version = "v1" });
             });
 
-
+            //CORS
+            services.AddCors();
 
         }
 
@@ -79,6 +80,9 @@ namespace authService
             app.UseAuthorization();
 
             app.UseAuthentication();
+
+            app.UseCors(options => options.WithOrigins("http://example.com").AllowAnyMethod()
+    );
 
             //app.UseMvc();
 
