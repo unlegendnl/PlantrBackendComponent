@@ -56,10 +56,6 @@ namespace authService
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "authService", Version = "v1" });
             });
-
-            //CORS
-            services.AddCors();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,8 +77,10 @@ namespace authService
 
             app.UseAuthentication();
 
-            app.UseCors(options => options.WithOrigins("http://example.com").AllowAnyMethod()
-    );
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             //app.UseMvc();
 

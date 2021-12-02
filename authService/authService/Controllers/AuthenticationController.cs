@@ -18,16 +18,18 @@ namespace authService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : Controller
+    [AllowAnonymous]
+    public class AuthenticationController : Controller
     {
         private IConfiguration _config;
         private UserContext _userContext;
 
-        public LoginController(IConfiguration config, UserContext userContext)
+        public AuthenticationController(IConfiguration config, UserContext userContext)
         {
             _config = config;
             _userContext = userContext;
         }
+
 
         [AllowAnonymous]
         [HttpPost]
@@ -43,6 +45,16 @@ namespace authService.Controllers
             }
 
             return response;
+        }
+
+        /// <summary>
+        /// niet
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public string Test()
+        {
+            return "wokkels zijn lekker";
         }
 
         private string GenerateJSONWebToken(User userInfo)
