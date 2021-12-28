@@ -49,7 +49,7 @@ namespace authService
             services.AddMvc();
 
             //database connection
-            services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("UserConnStr")));
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("auth-db")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
