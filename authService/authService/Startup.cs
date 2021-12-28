@@ -67,13 +67,21 @@ namespace authService
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "authService v1"));
 
 
-            context.SeedDb();
+
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var x = serviceScope.ServiceProvider.GetService<UserContext>();
+                x.Database.EnsureCreated();
+            }
+
+            context.SeedDb();
 
             app.UseAuthentication();
 
