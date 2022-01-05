@@ -10,7 +10,8 @@ using System.Net.Http;
 using System.Net;
 using Microsoft.AspNetCore.Identity;
 using authService.Security;
-
+using Confluent.Kafka;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,9 +23,11 @@ namespace authService
     public class UserController : ControllerBase
     {
         private UserContext _userContext;
+        private IProducer<string, string> _producer;
 
-        public UserController(UserContext userContext)
+        public UserController(UserContext userContext, IProducer<string, string> producer)
         {
+            _producer = producer;
             _userContext = userContext;
         }
 
@@ -65,9 +68,20 @@ namespace authService
                 }
             }
             value.Password = SecurePasswordHasher.Hash(value.Password);
+            
+            Profile profileToGenerate = new Profile
+            {
+                Biography = "Empty yet",
+                ProfilePicture = "Empty",
+                UserId = value.UserId
+            };
+
+            produceKafkaMessage("newAccountEvent", profileToGenerate);
             _userContext.Users.Add(value);
             _userContext.SaveChanges();
         }
+
+        
 
         // PUT api/<UserController>/5
         [Microsoft.AspNetCore.Mvc.HttpPut("{id}")]
@@ -89,7 +103,22 @@ namespace authService
         }
 
 
+        public async void produceKafkaMessage(string eventName, Profile profileToGenerate)
+        {
+            try
+            {
+                var message = new Message<string, string>
+                {
+                    Value = JsonConvert.SerializeObject(profileToGenerate)
+                };
 
+                    await _producer.ProduceAsync(eventName, message).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
 
 
 

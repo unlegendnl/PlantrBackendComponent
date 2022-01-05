@@ -11,12 +11,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Confluent.Kafka;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Confluent.Kafka.DependencyInjection;
 
 namespace authService
 {
@@ -47,6 +49,14 @@ namespace authService
                 };
             });
             services.AddMvc();
+
+            services.AddKafkaClient(new Dictionary<string, string>
+            {
+                { "bootstrap.servers", "kafka-service:9092" },
+                { "enable.idempotence", "true" },
+                { "group.id", "group1" }
+            });
+
 
             //database connection
             services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("auth-db")));
